@@ -1,77 +1,45 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <iomanip>
+#include <stdio.h>
 
 using namespace std;
 
-// 1. Khai bao kieu du lieu cau truc NhanVien
+// CP1: Tạo cấu trúc NhanVien
 struct NhanVien {
-    string maNV;
-    string tenNV;
-    double luongCoBan;
-    double heSo;
+    char maNV[20];
+    char tenNV[50];
+    float luongCoBan;
+    float heSo;
 };
 
-// Ham nhap thong tin cho 1 nhan vien
-void nhapNhanVien(NhanVien &nv, int stt) {
-    cout << "\n--- Nhap thong tin nhan vien thu " << stt << " ---" << endl;
-    cout << "Nhap ma nhan vien: ";
-    cin >> nv.maNV;
-    cin.ignore(); // Xoa bo nho đem ban phim
-    
-    cout << "Nhap ten nhan vien: ";
-    getline(cin, nv.tenNV);
-    
-    cout << "Nhap luong co ban: ";
-    cin >> nv.luongCoBan;
-    
-    cout << "Nhap he so luong: ";
-    cin >> nv.heSo;
+// CP2: Hoàn thành hàm nhap()
+void nhap(NhanVien ds[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "\n--- Nhap nhan vien " << i + 1 << " ---" << endl;
+        
+        cout << "Nhap ma NV: ";
+        cin >> ds[i].maNV;
+        
+        fflush(stdin); // Xoá bộ nhớ đệm để không bị trôi lệnh nhập tên
+        cout << "Nhap ten NV: ";
+        gets(ds[i].tenNV);
+        
+        cout << "Nhap luong co ban: ";
+        cin >> ds[i].luongCoBan;
+        
+        cout << "Nhap he so: ";
+        cin >> ds[i].heSo;
+    }
 }
 
-// Ham xuat thong tin cho 1 nhan vien
-void xuatNhanVien(const NhanVien &nv) {
-    double luongThucNhan = nv.luongCoBan * nv.heSo;
-    cout << left << setw(12) << nv.maNV
-         << setw(25) << nv.tenNV
-         << setw(15) << fixed << setprecision(0) << nv.luongCoBan
-         << setw(10) << fixed << setprecision(2) << nv.heSo
-         << setw(15) << fixed << setprecision(0) << luongThucNhan << endl;
-}
-
-int main() {
-    int n;
-    
-    // Nhap so luong nhan vien
-    cout << "Nhap so luong nhan vien (n): ";
-    cin >> n;
-    
-    if (n <= 0) {
-        cout << "So luong nhan vien khong hop le!" << endl;
-        return 0;
-    }
-
-    // 2. Khai bao mang (dung vector) de chua n nhan vien
-    vector<NhanVien> dsNhanVien(n);
-
-    // Nhap danh sach nhan vien
+// CP2: Hoàn thành hàm xuat()
+void xuat(NhanVien ds[], int n) {
+    cout << "\n======== DANH SACH NHAN VIEN ========" << endl;
     for (int i = 0; i < n; i++) {
-        nhapNhanVien(dsNhanVien[i], i + 1);
+        cout << "\nNhan vien thứ " << i + 1 << ":" << endl;
+        cout << "Ma NV: " << ds[i].maNV << endl;
+        cout << "Ten NV: " << ds[i].tenNV << endl;
+        cout << "Luong co ban: " << ds[i].luongCoBan << endl;
+        cout << "He so: " << ds[i].heSo << endl;
+        cout << "Luong: " << ds[i].luongCoBan * ds[i].heSo << endl;
     }
-
-    // 3. Xuat danh sach nhan vien duoi dang bang
-    cout << "\n=================== DANH SACH NHAN VIEN ===================" << endl;
-    cout << left << setw(12) << "Ma NV"
-         << setw(25) << "Ho va Ten"
-         << setw(15) << "Luong CB"
-         << setw(10) << "He So"
-         << setw(15) << "Thuc Nhan" << endl;
-    cout << string(77, '-') << endl;
-
-    for (int i = 0; i < n; i++) {
-        xuatNhanVien(dsNhanVien[i]);
-    }
-
-    return 0;
 }
