@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+// ==========================================
+// CP1: Tạo cấu trúc NhanVien, khai báo mảng, số lượng nv
+// ==========================================
+struct NhanVien {
+    string maNV;
+    string tenNV;
+    double luongCoBan;
+    double heSo;
+};
+
+// ==========================================
+// CP2: Hoàn thành nhap() và xuat()
+// ==========================================
+void nhapMộtNhanVien(NhanVien &nv, int index) {
+    cout << "\n--- Nhập thông tin nhân viên thứ " << index + 1 << " ---\n";
+    cout << "Mã nhân viên: ";
+    getline(cin >> ws, nv.maNV);
+    cout << "Tên nhân viên: ";
+    getline(cin, nv.tenNV);
+    cout << "Lương cơ bản: ";
+    cin >> nv.luongCoBan;
+    cout << "Hệ số lương: ";
+    cin >> nv.heSo;
+}
+
+void nhapDanhSach(vector<NhanVien> &ds, int n) {
+    for (int i = 0; i < n; i++) {
+        nhapMộtNhanVien(ds[i], i);
+    }
+}
+
+void xuatDanhSach(const vector<NhanVien> &ds) {
+    cout << "\n=================== DANH SÁCH NHÂN VIÊN ===================\n";
+    cout << left << setw(12) << "Mã NV"
+         << setw(25) << "Tên NV"
+         << setw(18) << "Lương cơ bản"
+         << setw(10) << "Hệ số"
+         << setw(18) << "Lương thực nhận" << "\n";
+    cout << string(83, '-') << "\n";
+
+    for (const auto &nv : ds) {
+        double luongThucNhan = nv.luongCoBan * nv.heSo;
+        cout << left << setw(12) << nv.maNV
+             << setw(25) << nv.tenNV
+             << setw(18) << fixed << setprecision(0) << nv.luongCoBan
+             << setw(10) << setprecision(2) << nv.heSo
+             << setw(18) << setprecision(0) << luongThucNhan << "\n";
+    }
+    cout << string(83, '=') << "\n";
+}
+
+// ==========================================
+// FINAL: Hoàn thành toàn bộ bài
+// ==========================================
+int main() {
+    int n;
+
+    cout << "Nhập số lượng nhân viên: ";
+    cin >> n;
+
+    while (n <= 0) {
+        cout << "Số lượng phải lớn hơn 0. Nhập lại: ";
+        cin >> n;
+    }
+
+    // Khai báo mảng động sử dụng vector
+    vector<NhanVien> dsNhanVien(n);
+
+    // Thực hiện nhập/xuat
+    nhapDanhSach(dsNhanVien, n);
+    xuatDanhSach(dsNhanVien);
+
+    return 0;
+}
