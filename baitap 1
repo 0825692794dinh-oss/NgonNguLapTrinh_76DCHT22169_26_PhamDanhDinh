@@ -1,45 +1,33 @@
 #include <iostream>
-#include <stdio.h>
-
+#include <string>
 using namespace std;
 
-// CP1: Tạo cấu trúc NhanVien
-struct NhanVien {
-    char maNV[20];
-    char tenNV[50];
-    float luongCoBan;
-    float heSo;
-};
+int main() {
+    string nv[10][3];
 
-// CP2: Hoàn thành hàm nhap()
-void nhap(NhanVien ds[], int n) {
-    for (int i = 0; i < n; i++) {
-        cout << "\n--- Nhap nhan vien " << i + 1 << " ---" << endl;
-        
-        cout << "Nhap ma NV: ";
-        cin >> ds[i].maNV;
-        
-        fflush(stdin); // Xoá bộ nhớ đệm để không bị trôi lệnh nhập tên
-        cout << "Nhap ten NV: ";
-        gets(ds[i].tenNV);
-        
-        cout << "Nhap luong co ban: ";
-        cin >> ds[i].luongCoBan;
-        
-        cout << "Nhap he so: ";
-        cin >> ds[i].heSo;
-    }
-}
+    // Nhập thông tin 10 nhân viên
+    for (int i = 0; i < 10; i++) {
+        cout << "\nNhap thong tin nhan vien thu " << i + 1 << ":\n";
 
-// CP2: Hoàn thành hàm xuat()
-void xuat(NhanVien ds[], int n) {
-    cout << "\n======== DANH SACH NHAN VIEN ========" << endl;
-    for (int i = 0; i < n; i++) {
-        cout << "\nNhan vien thứ " << i + 1 << ":" << endl;
-        cout << "Ma NV: " << ds[i].maNV << endl;
-        cout << "Ten NV: " << ds[i].tenNV << endl;
-        cout << "Luong co ban: " << ds[i].luongCoBan << endl;
-        cout << "He so: " << ds[i].heSo << endl;
-        cout << "Luong: " << ds[i].luongCoBan * ds[i].heSo << endl;
+        cout << "Ho ten: ";
+        getline(cin >> ws, nv[i][0]);
+
+        cout << "Ma nhan vien: ";
+        getline(cin, nv[i][1]);
+
+        cout << "Chuc vu: ";
+        getline(cin, nv[i][2]);
     }
+
+    // Xuất danh sách
+    cout << "\n===== DANH SACH 10 NHAN VIEN =====\n";
+
+    for (int i = 0; i < 10; i++) {
+        cout << "\nNhan vien " << i + 1 << ":\n";
+        cout << "Ho ten: " << nv[i][0] << endl;
+        cout << "Ma nhan vien: " << nv[i][1] << endl;
+        cout << "Chuc vu: " << nv[i][2] << endl;
+    }
+
+    return 0;
 }
