@@ -1,0 +1,126 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class NhanVien
+{
+private:
+    string maNV;
+    string hoTen;
+    string phongBan;
+    double luong;
+
+public:
+    // 1. Hàm tạo không đối
+    NhanVien()
+    {
+        maNV = "";
+        hoTen = "";
+        phongBan = "";
+        luong = 0;
+    }
+
+    // 2. Hàm tạo có đối
+    NhanVien(string ma, string ten, string phong, double l)
+    {
+        maNV = ma;
+        hoTen = ten;
+        phongBan = phong;
+        luong = l;
+    }
+
+    // Hàm nhập
+    void nhap()
+    {
+        cout << "Ma nhan vien: ";
+        getline(cin, maNV);
+
+        cout << "Ho ten: ";
+        getline(cin, hoTen);
+
+        cout << "Phong ban: ";
+        getline(cin, phongBan);
+
+        cout << "Luong: ";
+        cin >> luong;
+        cin.ignore();
+    }
+
+    // Hàm xuất
+    void xuat() const
+    {
+        cout << left
+             << setw(15) << maNV
+             << setw(25) << hoTen
+             << setw(20) << phongBan
+             << setw(15) << fixed << setprecision(2) << luong
+             << endl;
+    }
+
+    // 3. Hàm hủy
+    ~NhanVien()
+    {
+        // Hàm hủy
+    }
+};
+
+int main()
+{
+    int n;
+
+    cout << "Nhap so luong nhan vien: ";
+    cin >> n;
+    cin.ignore();
+
+    // Mảng nhân viên
+    NhanVien *ds = new NhanVien[n];
+
+    cout << "\n===== NHAP DANH SACH NHAN VIEN =====\n";
+
+    for (int i = 0; i < n; i++)
+    {
+        string ma, ten, phong;
+        double luong;
+
+        cout << "\nNhan vien thu " << i + 1 << ":\n";
+
+        cout << "Ma nhan vien: ";
+        getline(cin, ma);
+
+        cout << "Ho ten: ";
+        getline(cin, ten);
+
+        cout << "Phong ban: ";
+        getline(cin, phong);
+
+        cout << "Luong: ";
+        cin >> luong;
+        cin.ignore();
+
+        // Dùng constructor có đối
+        ds[i] = NhanVien(ma, ten, phong, luong);
+    }
+
+    // Xuất theo cột
+    cout << "\n\n================ DANH SACH NHAN VIEN ================\n";
+
+    cout << left
+         << setw(15) << "Ma NV"
+         << setw(25) << "Ho ten"
+         << setw(20) << "Phong ban"
+         << setw(15) << "Luong"
+         << endl;
+
+    cout << string(75, '-') << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        ds[i].xuat();
+    }
+
+    // Giải phóng bộ nhớ
+    delete[] ds;
+
+    return 0;
+}
