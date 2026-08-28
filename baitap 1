@@ -1,33 +1,92 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-int main() {
-    string nv[10][3];
+class MaTran
+{
+private:
+    int soHang;
+    int soCot;
+    int a[100][100];
 
-    // Nhập thông tin 10 nhân viên
-    for (int i = 0; i < 10; i++) {
-        cout << "\nNhap thong tin nhan vien thu " << i + 1 << ":\n";
+public:
+    // Ham nhap
+    void nhap()
+    {
+        cout << "Nhap so hang: ";
+        cin >> soHang;
 
-        cout << "Ho ten: ";
-        getline(cin >> ws, nv[i][0]);
+        cout << "Nhap so cot: ";
+        cin >> soCot;
 
-        cout << "Ma nhan vien: ";
-        getline(cin, nv[i][1]);
+        cout << "Nhap cac phan tu:\n";
 
-        cout << "Chuc vu: ";
-        getline(cin, nv[i][2]);
+        for (int i = 0; i < soHang; i++)
+        {
+            for (int j = 0; j < soCot; j++)
+            {
+                cout << "a[" << i << "][" << j << "] = ";
+                cin >> a[i][j];
+            }
+        }
     }
 
-    // Xuất danh sách
-    cout << "\n===== DANH SACH 10 NHAN VIEN =====\n";
-
-    for (int i = 0; i < 10; i++) {
-        cout << "\nNhan vien " << i + 1 << ":\n";
-        cout << "Ho ten: " << nv[i][0] << endl;
-        cout << "Ma nhan vien: " << nv[i][1] << endl;
-        cout << "Chuc vu: " << nv[i][2] << endl;
+    // Ham xuat
+    void xuat()
+    {
+        for (int i = 0; i < soHang; i++)
+        {
+            for (int j = 0; j < soCot; j++)
+            {
+                cout << a[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
+
+    // Ham ban
+    friend MaTran cong(MaTran A, MaTran B);
+};
+
+// Dinh nghia ham ban
+MaTran cong(MaTran A, MaTran B)
+{
+    MaTran C;
+
+    C.soHang = A.soHang;
+    C.soCot = A.soCot;
+
+    for (int i = 0; i < C.soHang; i++)
+    {
+        for (int j = 0; j < C.soCot; j++)
+        {
+            C.a[i][j] = A.a[i][j] + B.a[i][j];
+        }
+    }
+
+    return C;
+}
+
+int main()
+{
+    MaTran A, B, C;
+
+    cout << "===== NHAP MA TRAN A =====\n";
+    A.nhap();
+
+    cout << "\n===== NHAP MA TRAN B =====\n";
+    B.nhap();
+
+    // Goi ham ban de cong A va B
+    C = cong(A, B);
+
+    cout << "\n===== MA TRAN A =====\n";
+    A.xuat();
+
+    cout << "\n===== MA TRAN B =====\n";
+    B.xuat();
+
+    cout << "\n===== MA TRAN A + B =====\n";
+    C.xuat();
 
     return 0;
 }
