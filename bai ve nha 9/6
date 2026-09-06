@@ -1,0 +1,211 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SinhVien
+{
+private:
+    string hoten;
+    string namsinh;
+    float diem[5];
+
+public:
+    void nhap()
+    {
+        cout << "Nhap ho ten: ";
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        getline(cin, namsinh);
+
+        for (int i = 0; i < 5; i++)
+        {
+            cout << "Nhap diem mon " << i + 1 << ": ";
+            cin >> diem[i];
+        }
+
+        cin.ignore();
+    }
+
+    void xuat()
+    {
+        cout << "Ho ten: " << hoten << endl;
+        cout << "Nam sinh: " << namsinh << endl;
+
+        for (int i = 0; i < 5; i++)
+        {
+            cout << "Diem mon " << i + 1 << ": " << diem[i] << endl;
+        }
+
+        cout << "Diem trung binh: " << tinhDTB() << endl;
+    }
+
+    float tinhDTB()
+    {
+        float tong = 0;
+
+        for (int i = 0; i < 5; i++)
+        {
+            tong += diem[i];
+        }
+
+        return tong / 5;
+    }
+
+    void thiLai()
+    {
+        bool coThiLai = false;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (diem[i] < 5)
+            {
+                cout << "Mon " << i + 1
+                     << " - Diem: " << diem[i] << endl;
+
+                coThiLai = true;
+            }
+        }
+
+        if (!coThiLai)
+        {
+            cout << "Khong co mon nao phai thi lai." << endl;
+        }
+    }
+};
+
+int main()
+{
+    int n;
+
+    cout << "Nhap so sinh vien: ";
+    cin >> n;
+    cin.ignore();
+
+    SinhVien sv[100];
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n===== NHAP SINH VIEN " << i + 1 << " =====" << endl;
+        sv[i].nhap();
+    }
+
+    cout << "\n===== DANH SACH SINH VIEN =====" << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n--- Sinh vien " << i + 1 << " ---" << endl;
+        sv[i].xuat();
+
+        cout << "Cac mon phai thi lai:" << endl;
+        sv[i].thiLai();
+    }
+
+    return 0;
+}
+using namespace std;
+
+class SinhVien
+{
+private:
+    string hoten;
+    string namsinh;
+    float diem[4];
+
+public:
+    void nhap()
+    {
+        cout << "Nhap ho ten: ";
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        getline(cin, namsinh);
+
+        for (int i = 0; i < 4; i++)
+        {
+            cout << "Nhap diem mon " << i + 1 << ": ";
+            cin >> diem[i];
+        }
+
+        cin.ignore();
+    }
+
+    float tinhDTB()
+    {
+        float tong = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            tong += diem[i];
+        }
+
+        return tong / 4;
+    }
+
+    bool thiTotNghiep()
+    {
+        // Kiem tra co mon nao duoi 5 hay khong
+        for (int i = 0; i < 4; i++)
+        {
+            if (diem[i] < 5)
+            {
+                return false;
+            }
+        }
+
+        // DTB phai nho hon 7
+        if (tinhDTB() < 7)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    void xuat()
+    {
+        cout << "Ho ten: " << hoten << endl;
+        cout << "Nam sinh: " << namsinh << endl;
+
+        for (int i = 0; i < 4; i++)
+        {
+            cout << "Diem mon " << i + 1 << ": "
+                 << diem[i] << endl;
+        }
+
+        cout << "Diem trung binh: "
+             << tinhDTB() << endl;
+    }
+};
+
+int main()
+{
+    int n;
+
+    cout << "Nhap so sinh vien: ";
+    cin >> n;
+    cin.ignore();
+
+    SinhVien sv[100];
+
+    // Nhap danh sach sinh vien
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\n===== SINH VIEN " << i + 1 << " =====" << endl;
+        sv[i].nhap();
+    }
+
+    // In sinh vien phai thi tot nghiep
+    cout << "\n===== SINH VIEN PHAI THI TOT NGHIEP =====" << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (sv[i].thiTotNghiep())
+        {
+            cout << "\n--- Sinh vien " << i + 1 << " ---" << endl;
+            sv[i].xuat();
+        }
+    }
+
+    return 0;
+}
