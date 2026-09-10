@@ -173,3 +173,171 @@ int main()
 
     return 0;
 }
+#include <iostream>
+using namespace std;
+
+class PhanSo
+{
+private:
+    int tu;
+    int mau;
+
+public:
+    // Ham tao khong doi
+    PhanSo()
+    {
+        tu = 0;
+        mau = 1;
+    }
+
+    // Ham tao co doi
+    PhanSo(int t, int m)
+    {
+        tu = t;
+        mau = m;
+    }
+
+    // Ham huy
+    ~PhanSo()
+    {
+    }
+
+    // Nhap phan so
+    friend istream& operator>>(istream& is, PhanSo& ps)
+    {
+        cout << "Nhap tu so: ";
+        is >> ps.tu;
+
+        do
+        {
+            cout << "Nhap mau so: ";
+            is >> ps.mau;
+
+            if (ps.mau == 0)
+                cout << "Mau so phai khac 0!" << endl;
+
+        } while (ps.mau == 0);
+
+        return is;
+    }
+
+    // Tim UCLN
+    int UCLN(int a, int b)
+    {
+        if (a < 0)
+            a = -a;
+
+        if (b < 0)
+            b = -b;
+
+        while (b != 0)
+        {
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+
+        return a;
+    }
+
+    // Rut gon
+    void rutGon()
+    {
+        int u = UCLN(tu, mau);
+
+        tu = tu / u;
+        mau = mau / u;
+
+        if (mau < 0)
+        {
+            tu = -tu;
+            mau = -mau;
+        }
+    }
+
+    // Xuat phan so
+    friend ostream& operator<<(ostream& os, PhanSo ps)
+    {
+        ps.rutGon();
+
+        if (ps.mau == 1)
+            os << ps.tu;
+        else
+            os << ps.tu << "/" << ps.mau;
+
+        return os;
+    }
+
+    // Toan tu cong
+    PhanSo operator+(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.mau + b.tu * mau;
+        kq.mau = mau * b.mau;
+
+        kq.rutGon();
+
+        return kq;
+    }
+
+    // Toan tu tru
+    PhanSo operator-(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.mau - b.tu * mau;
+        kq.mau = mau * b.mau;
+
+        kq.rutGon();
+
+        return kq;
+    }
+
+    // Toan tu nhan
+    PhanSo operator*(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.tu;
+        kq.mau = mau * b.mau;
+
+        kq.rutGon();
+
+        return kq;
+    }
+
+    // Toan tu chia
+    PhanSo operator/(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.mau;
+        kq.mau = mau * b.tu;
+
+        kq.rutGon();
+
+        return kq;
+    }
+};
+
+int main()
+{
+    PhanSo a, b;
+
+    cout << "Nhap phan so thu nhat:" << endl;
+    cin >> a;
+
+    cout << "\nNhap phan so thu hai:" << endl;
+    cin >> b;
+
+    cout << "\nPhan so thu nhat: " << a;
+    cout << "\nPhan so thu hai: " << b;
+
+    cout << "\n\nCong: " << a + b;
+    cout << "\nTru: " << a - b;
+    cout << "\nNhan: " << a * b;
+    cout << "\nChia: " << a / b;
+
+    return 0;
+}
