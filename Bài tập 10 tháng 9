@@ -1,0 +1,175 @@
+#include <iostream>
+using namespace std;
+
+class PhanSo
+{
+private:
+    int tu;
+    int mau;
+
+public:
+    // Ham tao khong doi
+    PhanSo()
+    {
+        tu = 0;
+        mau = 1;
+    }
+
+    // Ham tao co doi
+    PhanSo(int t, int m)
+    {
+        tu = t;
+        mau = m;
+    }
+
+    // Ham huy
+    ~PhanSo()
+    {
+    }
+
+    // Nhap phan so
+    void nhap()
+    {
+        cout << "Nhap tu so: ";
+        cin >> tu;
+
+        do
+        {
+            cout << "Nhap mau so: ";
+            cin >> mau;
+
+            if (mau == 0)
+                cout << "Mau so phai khac 0!" << endl;
+
+        } while (mau == 0);
+    }
+
+    // Tim UCLN
+    int UCLN(int a, int b)
+    {
+        if (a < 0)
+            a = -a;
+
+        if (b < 0)
+            b = -b;
+
+        while (b != 0)
+        {
+            int r = a % b;
+            a = b;
+            b = r;
+        }
+
+        return a;
+    }
+
+    // Rut gon phan so
+    void rutGon()
+    {
+        int u = UCLN(tu, mau);
+
+        tu = tu / u;
+        mau = mau / u;
+
+        // Dua dau am len tu
+        if (mau < 0)
+        {
+            tu = -tu;
+            mau = -mau;
+        }
+    }
+
+    // Xuat phan so
+    void xuat()
+    {
+        rutGon();
+
+        if (mau == 1)
+            cout << tu;
+        else
+            cout << tu << "/" << mau;
+    }
+
+    // Cong hai phan so
+    PhanSo cong(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.mau + b.tu * mau;
+        kq.mau = mau * b.mau;
+
+        kq.rutGon();
+
+        return kq;
+    }
+
+    // Tru hai phan so
+    PhanSo tru(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.mau - b.tu * mau;
+        kq.mau = mau * b.mau;
+
+        kq.rutGon();
+
+        return kq;
+    }
+
+    // Nhan hai phan so
+    PhanSo nhan(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.tu;
+        kq.mau = mau * b.mau;
+
+        kq.rutGon();
+
+        return kq;
+    }
+
+    // Chia hai phan so
+    PhanSo chia(PhanSo b)
+    {
+        PhanSo kq;
+
+        kq.tu = tu * b.mau;
+        kq.mau = mau * b.tu;
+
+        kq.rutGon();
+
+        return kq;
+    }
+};
+
+int main()
+{
+    PhanSo a, b;
+
+    cout << "Nhap phan so thu nhat:" << endl;
+    a.nhap();
+
+    cout << "\nNhap phan so thu hai:" << endl;
+    b.nhap();
+
+    cout << "\nPhan so thu nhat: ";
+    a.xuat();
+
+    cout << "\nPhan so thu hai: ";
+    b.xuat();
+
+    cout << "\n\nCong: ";
+    a.cong(b).xuat();
+
+    cout << "\nTru: ";
+    a.tru(b).xuat();
+
+    cout << "\nNhan: ";
+    a.nhan(b).xuat();
+
+    cout << "\nChia: ";
+    a.chia(b).xuat();
+
+    return 0;
+}
