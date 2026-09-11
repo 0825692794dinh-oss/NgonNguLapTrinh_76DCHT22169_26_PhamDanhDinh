@@ -1,0 +1,130 @@
+#include <iostream>
+using namespace std;
+
+class SoPhuc
+{
+private:
+    float phanThuc;
+    float phanAo;
+
+public:
+    // Ham tao khong doi
+    SoPhuc()
+    {
+        phanThuc = 0;
+        phanAo = 0;
+    }
+
+    // Ham tao co doi
+    SoPhuc(float thuc, float ao)
+    {
+        phanThuc = thuc;
+        phanAo = ao;
+    }
+
+    // Ham huy
+    ~SoPhuc()
+    {
+    }
+
+    // Toan tu >> de nhap so phuc
+    friend istream& operator>>(istream& is, SoPhuc& sp)
+    {
+        cout << "Nhap phan thuc: ";
+        is >> sp.phanThuc;
+
+        cout << "Nhap phan ao: ";
+        is >> sp.phanAo;
+
+        return is;
+    }
+
+    // Toan tu << de xuat so phuc dang a+bi
+    friend ostream& operator<<(ostream& os, SoPhuc sp)
+    {
+        if (sp.phanAo >= 0)
+        {
+            os << sp.phanThuc << "+" << sp.phanAo << "i";
+        }
+        else
+        {
+            os << sp.phanThuc << sp.phanAo << "i";
+        }
+
+        return os;
+    }
+
+    // Toan tu +
+    SoPhuc operator+(SoPhuc sp)
+    {
+        SoPhuc kq;
+
+        kq.phanThuc = phanThuc + sp.phanThuc;
+        kq.phanAo = phanAo + sp.phanAo;
+
+        return kq;
+    }
+
+    // Toan tu -
+    SoPhuc operator-(SoPhuc sp)
+    {
+        SoPhuc kq;
+
+        kq.phanThuc = phanThuc - sp.phanThuc;
+        kq.phanAo = phanAo - sp.phanAo;
+
+        return kq;
+    }
+
+    // Toan tu *
+    SoPhuc operator*(SoPhuc sp)
+    {
+        SoPhuc kq;
+
+        kq.phanThuc = phanThuc * sp.phanThuc
+                    - phanAo * sp.phanAo;
+
+        kq.phanAo = phanThuc * sp.phanAo
+                  + phanAo * sp.phanThuc;
+
+        return kq;
+    }
+
+    // Toan tu /
+    SoPhuc operator/(SoPhuc sp)
+    {
+        SoPhuc kq;
+
+        float mau = sp.phanThuc * sp.phanThuc
+                  + sp.phanAo * sp.phanAo;
+
+        kq.phanThuc = (phanThuc * sp.phanThuc
+                     + phanAo * sp.phanAo) / mau;
+
+        kq.phanAo = (phanAo * sp.phanThuc
+                   - phanThuc * sp.phanAo) / mau;
+
+        return kq;
+    }
+};
+
+int main()
+{
+    SoPhuc a, b;
+
+    cout << "Nhap so phuc thu nhat:" << endl;
+    cin >> a;
+
+    cout << "\nNhap so phuc thu hai:" << endl;
+    cin >> b;
+
+    cout << "\nSo phuc thu nhat: " << a << endl;
+    cout << "So phuc thu hai: " << b << endl;
+
+    cout << "\nTong: " << a + b << endl;
+    cout << "Hieu: " << a - b << endl;
+    cout << "Tich: " << a * b << endl;
+    cout << "Thuong: " << a / b << endl;
+
+    return 0;
+}
