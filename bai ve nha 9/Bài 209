@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class MonHoc {
+public:
+    string tenMonHoc;
+    float CC;
+    float KT;
+    float DT;
+    float tinhDiemHocPhan() const {
+        return CC + KT + DT;
+    }
+};
+
+class SinhVien {
+public:
+    string hoTen;
+    string maSV;
+    MonHoc monHoc;
+    void nhap() {
+        cout << "Nhap thong tin sinh vien:\n";
+        cout << "Ho ten: ";
+        getline(cin, hoTen);
+        cout << "Ma sinh vien: ";
+        getline(cin, maSV);
+        cout << "\nNhap thong tin mon hoc:\n";
+        cout << "Ten mon hoc: ";
+        getline(cin, monHoc.tenMonHoc);
+        cout << "Diem chuyen can (CC): ";
+        cin >> monHoc.CC;
+        cout << "Diem kiem tra (KT): ";
+        cin >> monHoc.KT;
+        cout << "Diem thi (DT): ";
+        cin >> monHoc.DT;
+    }
+    void xuat() const {
+        cout << "\n====================================\n";
+        cout << "THONG TIN SINH VIEN\n";
+        cout << "====================================\n";
+        cout
