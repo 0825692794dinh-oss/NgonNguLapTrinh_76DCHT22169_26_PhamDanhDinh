@@ -39,4 +39,51 @@ public:
         cout << "\n====================================\n";
         cout << "THONG TIN SINH VIEN\n";
         cout << "====================================\n";
-        cout
+        cout << "Ho ten: " << hoTen << endl;
+        cout << "Ma SV: " << maSV << endl;
+        cout << "Mon hoc: " << monHoc.tenMonHoc << endl;
+        cout << "Diem chuyen can (CC): " << monHoc.CC << endl;
+        cout << "Diem kiem tra (KT): " << monHoc.KT << endl;
+        cout << "Diem thi (DT): " << monHoc.DT << endl;
+        cout << "Diem hoc phan: " << tinhDiemHocPhan() << endl;
+    }
+};
+
+int main() {
+    cout << "=== CAU 1: KHAI BAO LOP ===\n";
+    MonHoc monHoc;
+    monHoc.tenMonHoc = "Co So Du Lieu";
+    monHoc.CC = 8.5f;
+    monHoc.KT = 7.0f;
+    monHoc.DT = 6.5f;
+    SinhVien sv;
+    sv.hoTen = "Nguyen Van A";
+    sv.maSV = "SV001";
+    sv.monHoc = monHoc;
+    cout << "Lop MonHoc da tao:\n";
+    cout << "Ten mon: " << monHoc.tenMonHoc << endl;
+    cout << "Diem hoc phan: " << monHoc.tinhDiemHocPhan() << endl << endl;
+    cout << "Lop SinhVien da tao:\n";
+    cout << "Ho ten: " << sv.hoTen << endl;
+    cout << "Ma SV: " << sv.maSV << endl << endl;
+    cout << "=== CAU 2: SU DUNG PHUONG THUC ===\n";
+    SinhVien sv2;
+    sv2.nhap();
+    cout << "\nThong tin sau khi nhap:\n";
+    sv2.xuat();
+    cout << "\n\n=== CAU 3: TIM SINH VIEN BI CAM THI ===\n";
+    cout << "Nhap so luong sinh vien: ";
+    cin >> n;
+    for(int i = 0; i < n; i++) {
+        SinhVien sv3;
+        sv3.nhap();
+        float diemHP = sv3.monHoc.tinhDiemHocPhan();
+        bool camThi = (sv3.monHoc.CC < 5.0f) || (sv3.monHoc.KT < 5.0f);
+        if(camThi) {
+            cout << "\n--- SINH VIEN BI CAM THI ---\n";
+            sv3.xuat();
+        }
+    }
+    cout << "\nDa hoan thanh xu ly.\n";
+    return 0;
+}
