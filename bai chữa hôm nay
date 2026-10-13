@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+
+class sophuc {
+    private:
+        float thuc, ao;
+
+    public:
+        sophuc() {
+            thuc = ao = 0;
+        }
+
+        sophuc(float thuc, float ao) {
+            this->thuc = thuc;
+            this->ao = ao;
+        }
+
+        ~sophuc() {}
+
+        // Cau 2: Nap chong toan tu nhap, xuat
+        friend istream& operator>>(istream &is, sophuc &p);
+        friend ostream& operator<<(ostream &os, sophuc p);
+
+        // Cau 3: Xay dung cac toan tu cong, tru, nhan
+        sophuc operator+(sophuc a) {
+            sophuc kq;
+            kq.thuc = thuc + a.thuc;
+            kq.ao = ao + a.ao;
+            return kq;
+        }
+
+        sophuc operator-(sophuc a) {
+            sophuc kq;
+            kq.thuc = thuc - a.thuc;
+            kq.ao = ao - a.ao;
+            return kq;
+        }
+
+        sophuc operator*(sophuc a) {
+            sophuc kq;
+            kq.thuc = thuc * a.thuc - ao * a.ao;
+            kq.ao = thuc * a.ao + ao * a.thuc;
+            return kq;
+        }
+};
+
+// Nap chong toan tu nhap >>
+istream& operator>>(istream &is, sophuc &p) {
+    cout << "Nhap phan thuc: ";
+    is >> p.thuc;
+
+    cout << "Nhap phan ao: ";
+    is >> p.ao;
+
+    return is;
+}
+
+// Nap chong toan tu xuat <<
+ostream& operator<<(ostream &os, sophuc p) {
+    if (p.ao < 0)
+        os << p.thuc << p.ao << "i" << endl;
+    else
+        os << p.thuc << "+" << p.ao << "i" << endl;
+
+    return os;
+}
+
+int main() {
+    // Test cau 2: Tao chu thich bang Ctrl + /
+    sophuc a;
+
+    cin >> a;
+    cout << a;
+
+    return 0;
+}
